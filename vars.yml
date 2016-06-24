@@ -8,4 +8,6 @@ arch_ostree_dir: /usr/share/arch-ostree
 nginx_vhosts:
   - server_name: "build.papyros.io"
     root: "/var/www/"
+    extra_parameters: |
+      autoindex on;
 nginx_conf_path: /etc/nginx

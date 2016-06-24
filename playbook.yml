@@ -15,6 +15,7 @@
       - devtools
       - arch-install-scripts
       - git
+      - ostree
 
     - name: Install nginx
       pacman: name=nginx state=present
@@ -39,8 +40,11 @@
       git: repo=https://github.com/iBeliever/arch-ostree.git
            dest={{ arch_ostree_dir }}
 
-    - name: Ensure the buid directory exists
+    - name: Ensure the build directory exists
       file: dest={{ builder_dir }} state=directory
+
+    - name: Ensure the builder data exists
+      file: dest={{ builder_dir }} state=directory mode=a+rw
 
     - name: Install the OSTree build job
       template: src=templates/build_ostree.sh.j2

@@ -8,8 +8,10 @@ else
     BUILD_NUMBER=1
 fi
 
-sudo {{ arch_ostree_dir }}/arch-ostree.py {{ builder_dir }}/gnome.yml master $BUILD_NUMBER
+sudo rm -rf pacstrap
+sudo mkdir -p /var/www
+sudo {{ arch_ostree_dir }}/arch-ostree.py {{ builder_dir }}/gnome.yml master $BUILD_NUMBER /var/www/ostree
+sudo chmod a+r -R /var/www
 
-BUILD_NUMBER=`let $BUILD_NUMBER + 1`
-
+let "BUILD_NUMBER = $BUILD_NUMBER + 1"
 echo $BUILD_NUMBER > $BUILD_NUMBER_FILE

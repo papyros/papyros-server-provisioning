@@ -6,14 +6,36 @@ support_url: https://github.com/papyros/papyros/
 bug_report_url: https://github.com/papyros/papyros/issues
 ansi_color: 0;36
 packages:
+  # System tools
+  - sudo
+  - devtools
+  - arch-install-scripts
+  - git
+  - vim
+  - wget
+  - python-pip
   - ostree
   - flatpak
+  - fish
+  - ansible
+  - npm
+  - nodejs
+
+  # GNOME
   - gnome
   - gnome-software
   - gnome-initial-setup
+
+  # Additional apps
+  - gitg
+  - d-feet
+  - dconf-editor
+  - shutter
+
+  # X11 display server
   - mesa
   - mesa-vdpau
-  - xf86-input-synaptics
+  - xf86-input-libinput
   - xf86-video-ati
   - xf86-video-fbdev
   - xf86-video-intel
@@ -23,5 +45,4 @@ packages:
   - xf86-video-vmware
   - xorg-server
   - xorg-server-utils
-display_manager: gdm
 hostname: gnome
