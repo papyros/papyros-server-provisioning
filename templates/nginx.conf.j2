@@ -1,0 +1,68 @@
+#user html;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    {% for vhost in nginx_vhosts %}
+    server {
+        listen {{ vhost.listen | default('80 default_server') }};
+
+        {% if vhost.server_name is defined %}
+        server_name {{ vhost.server_name }};
+        {% endif %}
+
+        {% if vhost.root is defined %}
+        root {{ vhost.root }};
+        {% endif %}
+
+        index {{ vhost.index | default('index.html index.htm') }};
+
+        {% if vhost.error_page is defined %}
+        error_page {{ vhost.error_page }};
+        {% endif %}
+        {% if vhost.access_log is defined %}
+        access_log {{ vhost.access_log }};
+        {% endif %}
+        {% if vhost.error_log is defined %}
+        error_log {{ vhost.error_log }} error;
+        {% endif %}
+
+        {% if vhost.return is defined %}
+        return {{ vhost.return }};
+        {% endif %}
+
+        {% if vhost.extra_parameters is defined %}
+        {{ vhost.extra_parameters }}
+        {% endif %}
+    }
+    {% endfor %}
+
+}

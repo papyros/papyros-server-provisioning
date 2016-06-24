@@ -1,0 +1,11 @@
+---
+ansible_python_interpreter: /usr/bin/python2
+
+builder_data_dir: /var/builder
+builder_dir: /usr/share/builder
+arch_ostree_dir: /usr/share/arch-ostree
+
+nginx_vhosts:
+  - server_name: "build.papyros.io"
+    root: "/var/www/"
+nginx_conf_path: /etc/nginx

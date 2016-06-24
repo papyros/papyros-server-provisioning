@@ -1,0 +1,2 @@
+[builder]
+build.papyros.io ansible_ssh_user=builder ansible_python_interpreter=/usr/bin/python2

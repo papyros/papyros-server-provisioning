@@ -1,0 +1,72 @@
+---
+- hosts: builder
+
+  become: yes
+  become_method: sudo
+
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - name: Install system dependencies
+      pacman: name={{ item }} state=present
+      with_items:
+      - python-yaml
+      - devtools
+      - arch-install-scripts
+      - git
+
+    - name: Install nginx
+      pacman: name=nginx state=present
+      notify:
+       - enable nginx
+       - restart nginx
+
+    - name: Install cronie
+      pacman: name=cronie state=present
+      notify:
+       - enable cronie
+       - restart cronie
+
+    - name: Set up the nginx server
+      template:
+        src: templates/nginx.conf.j2
+        dest: "{{ nginx_conf_path }}/nginx.conf"
+        mode: 0644
+      notify: reload nginx
+
+    - name: Install arch-ostree
+      git: repo=https://github.com/iBeliever/arch-ostree.git
+           dest={{ arch_ostree_dir }}
+
+    - name: Ensure the buid directory exists
+      file: dest={{ builder_dir }} state=directory
+
+    - name: Install the OSTree build job
+      template: src=templates/build_ostree.sh.j2
+                dest={{ builder_dir }}/build_ostree.sh
+                mode=a+x
+
+    - name: Upload the GNOME OS config
+      copy: src=files/gnome.yml
+            dest={{ builder_dir }}/gnome.yml
+
+    - name: Set up the daily OSTree build job
+      cron: name="a job for reboot" special_time=daily job="{{ builder_dir }}/build_ostree.sh"
+
+  handlers:
+
+    - name: enable nginx
+      service: name=nginx enabled=yes
+
+    - name: restart nginx
+      service: name=nginx state=restarted
+
+    - name: enable cronie
+      service: name=cronie enabled=yes
+
+    - name: restart cronie
+      service: name=cronie state=restarted
+
+    - name: reload nginx
+      service: name=nginx state=reloaded

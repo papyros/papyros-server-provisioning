@@ -1,0 +1,15 @@
+#! /bin/bash
+
+BUILD_NUMBER_FILE={{ builder_data_dir }}/build_number
+
+if [[ -f $BUILD_NUMBER_FILE ]]; then
+    BUILD_NUMBER=`cat $BUILD_NUMBER_FILE`
+else
+    BUILD_NUMBER=1
+fi
+
+sudo {{ arch_ostree_dir }}/arch-ostree.py {{ builder_dir }}/gnome.yml master $BUILD_NUMBER
+
+BUILD_NUMBER=`let $BUILD_NUMBER + 1`
+
+echo $BUILD_NUMBER > $BUILD_NUMBER_FILE
