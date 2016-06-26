@@ -6,6 +6,10 @@ support_url: https://github.com/papyros/papyros/
 bug_report_url: https://github.com/papyros/papyros/issues
 ansi_color: 0;36
 packages:
+  # Core stuff
+  - dkms
+  - linux-headers
+
   # System tools
   - sudo
   - devtools
@@ -47,7 +51,6 @@ packages:
   - d-feet
   - dconf-editor
   - shutter
-  - xterm
 
   # X11 display server
   - mesa
