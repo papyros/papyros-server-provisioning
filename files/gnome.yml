@@ -25,12 +25,29 @@ packages:
   - gnome
   - gnome-software
   - gnome-initial-setup
+  - bijiben
+  - devhelp
+  - file-roller
+  - gedit
+  - gedit-code-assistance
+  - gitg
+  - gnome-builder
+  - gnome-devel-docs
+  - gnome-documents
+  - gnome-getting-started-docs
+  - gnome-logs
+  - gnome-sound-recorder
+  - gnome-todo
+  - gnome-tweak-tool
+  - gnome-weather
+  - nautilus-sendto
+  - polari
 
   # Additional apps
-  - gitg
   - d-feet
   - dconf-editor
   - shutter
+  - xterm
 
   # X11 display server
   - mesa
@@ -45,4 +62,14 @@ packages:
   - xf86-video-vmware
   - xorg-server
   - xorg-server-utils
+
+  # Locally built aur packages
+  - git-cola
+  - atom-editor-bin
+  - broadcom-wl-dkms
+enabled_services:
+  # - gdm
+  - NetworkManager
+disabled_services:
+  - systemd-networkd
 hostname: gnome

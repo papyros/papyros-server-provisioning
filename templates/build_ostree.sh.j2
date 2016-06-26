@@ -10,7 +10,7 @@ fi
 
 sudo rm -rf pacstrap
 sudo mkdir -p /var/www
-sudo {{ arch_ostree_dir }}/arch-ostree.py {{ builder_dir }}/gnome.yml master $BUILD_NUMBER /var/www/ostree
+{{ arch_ostree_dir }}/arch-ostree.py {{ builder_dir }}/gnome.yml master $BUILD_NUMBER /var/www/ostree
 sudo chmod a+r -R /var/www
 
 let "BUILD_NUMBER = $BUILD_NUMBER + 1"
