@@ -22,8 +22,14 @@ packages:
   - flatpak
   - fish
   - ansible
+  - vagrant
   - npm
   - nodejs
+  - hub
+  - powerline-fonts
+  - noto-fonts
+  - ttf-roboto
+  - ttf-roboto-mono
 
   # GNOME
   - gnome
@@ -51,6 +57,8 @@ packages:
   - d-feet
   - dconf-editor
   - shutter
+  - firefox
+  - corebird
 
   # X11 display server
   - mesa
@@ -71,7 +79,7 @@ packages:
   - atom-editor-bin
   - broadcom-wl-dkms
 enabled_services:
-  # - gdm
+  - gdm
   - NetworkManager
 disabled_services:
   - systemd-networkd
